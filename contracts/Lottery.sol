@@ -21,6 +21,6 @@ contract Lottery{
         people= new address[](0);
     }
     function getPlayers() public view returns(address []){
-       returns people;
+       return people;
     }
 }
