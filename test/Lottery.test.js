@@ -48,8 +48,8 @@ describe('lottery', () => {
                 value: 0
             });
             assert(false)
-        } catch (err) { 
-            assert(err) 
+        } catch (err) {
+            assert(err)
         }
     });
 
@@ -59,9 +59,19 @@ describe('lottery', () => {
                 from: accounts[0],
             });
             assert(false)
-        } catch (err) { 
-            assert(err) 
+        } catch (err) {
+            assert(err)
         }
     });
 
+    it('send money to winner resets people array', async () => {
+        await lottery.methods.enter().send({
+            from: accounts[0],
+            value: web3.utils.toWei('2', 'ether')
+        });
+        const initialAmt = await web3.eth.getBalance(accounts[0]);
+        await lottery.methods.pickWinner().send({ from: accounts[0] });
+        const finalAmt = await web3.eth.getBalance(accounts[0]);
+        assert(finalAmt - initialAmt > web3.utils.toWei('1.9', 'ether'));
+    });
 })
