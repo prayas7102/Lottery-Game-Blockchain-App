@@ -11,7 +11,7 @@ function App() {
   const [value, setValue] = useState("");
   const [msg, setMsg] = useState("");
 
-  useEffect(){
+  useEffect(()=>{
     const getManager = async () => {
       const manager = await Lottery.methods.manager.call();
       setManager(manager);
@@ -21,7 +21,7 @@ function App() {
       setBalance(balance);
     }
     getManager();
-  }
+  },[])
 
   const submitResponse = async (e) => {
     e.preventDefault();
@@ -33,6 +33,7 @@ function App() {
     });
     setMsg("User entered successfuly")
   }
+  
   async function pickWinner(){
     const accounts = await web3.eth.getAccounts();
     setMsg("Wait transaction in process")
