@@ -1,12 +1,15 @@
 import React, { Component, useEffect, useState } from 'react';
 import './App.css';
 import web3 from './Web3';
-import Lottery from "./Lottery"
+import Lottery from "./Lottery";
+
 function App() {
+
   const [manager, setManager] = useState("");
   const [player, setPlayer] = useState([]);
   const [balance, setBalance] = useState("");
   const [value, setValue] = useState("");
+  const [msg, setMsg] = useState("");
 
   useEffect(){
     const getManager = async () => {
@@ -20,13 +23,24 @@ function App() {
     getManager();
   }
 
-  const submitResponse = async(e) => {
+  const submitResponse = async (e) => {
     e.preventDefault();
     const accounts = await web3.eth.getAccounts();
-    await Lottery.methods.enter().send({ 
-      from: accounts[0], 
-      value: web3.utils.toWei(value, 'ether') 
-    })
+    setMsg("Wait transaction in process")
+    await Lottery.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei(value, 'ether')
+    });
+    setMsg("User entered successfuly")
+  }
+  async function pickWinner(){
+    const accounts = await web3.eth.getAccounts();
+    setMsg("Wait transaction in process")
+    await Lottery.methods.pickWinner().send({
+      from: accounts[0],
+      value: web3.utils.toWei(value, 'ether')
+    });
+    setMsg("Winner picked successfuly")
   }
 
   return (
@@ -46,8 +60,15 @@ function App() {
           Enter
         </button>
       </form>
+      <hr />
+      <h3>Pick Winner</h3>
+      <button onClick={pickWinner()}>Pick Winner</button>
+      <hr />
+      <h2>{msg}</h2>
+      <hr />
     </div>
   );
+
 }
 
 export default App;
