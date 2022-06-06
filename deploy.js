@@ -5,7 +5,7 @@ require("dotenv").config({ path: '.env' });
 
 const provider = new HDWalletProvider(
     `${process.env.MNEUMONIC}`,
-    'https://rinkeby.infura.io/v3/d74f06effce04fdcbe3465483b46f07f',
+    `${process.env.RINKEBY}`,
 );
 const web3 = new Web3(provider)
 const deploy = async () => {
