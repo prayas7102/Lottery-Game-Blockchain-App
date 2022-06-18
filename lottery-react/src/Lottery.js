@@ -1,5 +1,6 @@
 import web3 from "./Web3";
-const address = `${process.env.DEPLOYED_ADDRESS}`, abi = [
+const address = `${process.env.DEPLOYED_ADDRESS}`;
+const abi = [
     {
         constant: true,
         inputs: [],
