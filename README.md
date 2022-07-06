@@ -1,6 +1,3 @@
-# Lottery-Game-Blockchain-App
-
-
 # Blockchain Lottery Game
 
 This project is one of the most basic and famous blockchain Ethereum project by Stephen Grider. 
